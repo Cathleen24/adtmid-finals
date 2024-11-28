@@ -1,0 +1,73 @@
+.Main {
+  display: flex;
+  overflow: hidden;
+  max-height: 100vh;
+}
+
+.Main .container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+}
+
+.Main .container .navigation {
+  background-color: #f0f4f8;
+  width: 250px;
+  padding: 20px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.Main .container .navigation ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.Main .container .navigation ul li {
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+}
+
+.Main .container .navigation ul li:hover,
+.Main .container .navigation ul li.active {
+  background: #e3e7ed;
+  border-radius: 5px;
+}
+
+.Main .container .navigation ul li a {
+  text-decoration: none;
+  color: #333;
+  display: block;
+}
+
+.Main .container .navigation ul li.logout {
+  margin-top: auto;
+}
+
+.Main .container .navigation ul li.logout button {
+  background: #ff6b6b;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+}
+
+.Main .container .navigation ul li.logout button:hover {
+  background: #e85656;
+}
+
+.Main .container .outlet {
+  flex-grow: 1;
+  padding: 1.5rem;
+  background-color: #f9fafc;
+  overflow-y: auto;
+}
