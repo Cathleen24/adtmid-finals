@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import './Login.css'; // Ensure the styling is in the same directory as the component
+import './Login.css'; 
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -22,35 +22,35 @@ function Login() {
     }
   };
 
-  // Improved login function with error handling and form validation
+  
   const handleLogin = async () => {
-    // Validation: Ensure email and password are not empty
+    
     if (!email || !password) {
       setError('Please fill in both fields');
       return;
     }
 
     setStatus('loading');
-    setError(''); // Reset previous errors
+    setError(''); 
 
     const data = { email, password };
 
     try {
-      // Replace with your actual API URL for login
+      
       const response = await axios.post('/admin/login', data, {
-        headers: { 'Content-Type': 'application/json' }, // Set Content-Type
+        headers: { 'Content-Type': 'application/json' }, 
       });
 
-      // Assuming the response contains a token or a similar object
+      
       if (response.data.access_token) {
         localStorage.setItem('accessToken', response.data.access_token);
-        navigate('/main/movies'); // Redirect after successful login
+        navigate('/main/movies'); 
       } else {
         setError('Invalid credentials, please try again.');
       }
       setStatus('idle');
     } catch (err) {
-      // Check if the error is from the server and handle it
+      
       setError(err.response ? err.response.data.message : 'Something went wrong. Please try again later.');
       setStatus('idle');
     }
@@ -95,7 +95,7 @@ function Login() {
         <div className='submit-container'>
           <button
             type='button'
-            disabled={status === 'loading'} // Disable when loading
+            disabled={status === 'loading'} 
             onClick={handleLogin}
           >
             {status === 'loading' ? 'Loading...' : 'Login'}

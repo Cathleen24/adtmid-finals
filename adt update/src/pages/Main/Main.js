@@ -9,13 +9,13 @@ function Main() {
   // Logout handler
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
-    navigate('/'); // Redirect to login page
+    navigate('/'); 
   };
 
   // Check authentication
   useEffect(() => {
     if (!accessToken) {
-      navigate('/'); // Redirect to login page if no token
+      navigate('/'); 
     }
   }, [accessToken, navigate]);
 

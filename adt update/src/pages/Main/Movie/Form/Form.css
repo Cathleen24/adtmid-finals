@@ -9,7 +9,7 @@ body {
 /* Form Container */
 .form-container {
   max-width: 1200px;  
-  height: 1500px;
+  height: 1900px;
   margin: 20px auto;
   background: rgb(245, 202, 231);
   padding: 2px;
@@ -87,7 +87,7 @@ h1 {
 /* Movie Details */
 .movie-detail-container {
   max-width: 800px;
-  height: 2340px;
+  height: 2000px;
 }
 
 .movie-header {
@@ -286,7 +286,7 @@ h1 {
 /* Buttons */
 button {
   padding: 12px 20px;
-  background-color: #d5006d;
+  background-color: #fff;
   color: white;
   font-size: 16px;
   border: none;

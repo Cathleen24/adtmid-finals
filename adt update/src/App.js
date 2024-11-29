@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { createRoot } from 'react-dom/client'; // Correct import for React 18
+import { createRoot } from 'react-dom/client'; 
 import './index.css';
 import Login from './pages/Public/Login/Login';
 import Dashboard from './pages/Main/Dashboard/Dashboard';
@@ -27,7 +27,7 @@ const router = createBrowserRouter([
     path: '/main',
     element: <Main />,
     children: [
-      // Temporarily disabled the dashboard route
+      
       {
         path: '/main/dashboard',
         element: <Dashboard />,
@@ -58,9 +58,9 @@ function App() {
   );
 }
 
-// Rendering the App component with the correct method for React 18+
-const container = document.getElementById('root'); // Make sure you have an element with id="root"
-const root = createRoot(container); // Use createRoot instead of ReactDOM.render
+
+const container = document.getElementById('root'); 
+const root = createRoot(container); 
 root.render(<App />);
 
 export default App;
