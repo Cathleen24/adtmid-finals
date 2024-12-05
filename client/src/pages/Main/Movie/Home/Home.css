@@ -1,0 +1,117 @@
+.page-title {
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #fff;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.featured-list-container {
+  width: 100%;
+  height: 60vh; /* Adjusted to take up a larger portion of the screen */
+  position: relative;
+  margin-bottom: 2rem; /* Space between the backdrop and the movie list */
+  overflow: hidden; /* Prevents overflow from the backdrop */
+}
+
+.featured-backdrop {
+  height: 100%;
+  width: 100%;
+  background-size: cover; /* Ensures the backdrop fills the container */
+  background-position: center center; /* Keeps the image centered */
+  display: flex;
+  align-items: flex-end; /* Align the movie title at the bottom */
+  transition: transform 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.featured-backdrop:hover {
+  transform: scale(1.03);
+  filter: brightness(0.85);
+}
+
+.featured-movie-title {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  font-weight: bold;
+  font-size: 3rem;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8);
+}
+
+.list-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  width: 100%;
+}
+
+.movie-card {
+  background-color: #2a2a2a;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 220px; /* Set a fixed width for each movie card */
+}
+
+.movie-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7);
+}
+
+.movie-card img {
+  width: 100%;
+  height: auto;
+}
+
+.cast-preview {
+  padding: 1rem;
+  color: #ddd;
+}
+
+.video-photo-indicators {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+}
+
+.video-indicator,
+.photo-indicator {
+  font-size: 1.5rem;
+  color: #f5c518;
+}
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.search-bar {
+  width: 50%;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  background-color: #2a2a2a;
+  color: #fff;
+}
+
+.search-bar::placeholder {
+  color: #aaa;
+}
+
+.search-bar:focus {
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}

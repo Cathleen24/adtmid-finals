@@ -1,0 +1,118 @@
+/* Main container for centering the form */
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f7fa;
+}
+
+/* Form container with padding, border, and shadow for a clean card look */
+.form-container {
+  padding: 2rem;
+  border: 1px solid #e1e8ed;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Heading with centered text */
+h3 {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+/* General styles for form groups */
+.form-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.form-group input:focus {
+  border-color: #65e6db;
+}
+
+/* Error message styling */
+.errors {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 5px;
+}
+
+/* Show password toggle link */
+.show-password {
+  text-align: center;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #65e6db;
+  margin-bottom: 20px;
+}
+
+/* Submit button styles */
+.submit-container {
+  text-align: center;
+}
+
+button {
+  padding: 12px 20px;
+  font-size: 1rem;
+  color: white;
+  background-color: #65e6db;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s ease-in-out;
+}
+
+button:hover {
+  background-color: #4bc7b9;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Register container link styling */
+.register-container {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.register-container a {
+  color: #65e6db;
+  text-decoration: none;
+}
+
+.register-container a:hover {
+  text-decoration: underline;
+}
+
+/* Optional: A background for the login page */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
