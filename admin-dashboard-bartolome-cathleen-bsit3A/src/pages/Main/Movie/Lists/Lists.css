@@ -4,7 +4,7 @@
   flex-direction: column;
   padding: 0.1rem;
   background-color: #faf0e6; 
-  border-radius: 12px;
+  border-radius: 5px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
@@ -43,7 +43,7 @@
 
 .movie-lists th,
 .movie-lists td {
-  padding: 1rem;
+  padding: 0.1rem;
   text-align: left;
   border: 1px solid #e0c1b3; 
   font-size: 1rem;

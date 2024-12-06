@@ -8,7 +8,7 @@ body {
 
 /* Form Container */
 .form-container {
-  max-width: 1200px;  
+  max-width: 1500px;  
   height: 2000px;
   margin: 20px auto;
   background: rgb(21, 43, 83);
@@ -86,7 +86,7 @@ h1 {
 
 /* Movie Details */
 .movie-detail-container {
-  max-width: 800px;
+  max-width: 700px;
   height: 1800px;
 }
 
@@ -221,7 +221,7 @@ h1 {
 /* New Scrollable Section for Cast, Videos, Photos */
 .scroll-section {
   max-height: 400px; 
-  overflow-y: auto;  
+  overflow-y: auto;  /* Enable vertical scrolling when content overflows */
   margin-bottom: 15px;
 }
 

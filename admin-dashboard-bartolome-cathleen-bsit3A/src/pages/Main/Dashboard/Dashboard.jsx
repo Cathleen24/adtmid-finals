@@ -11,10 +11,16 @@ function Dashboard() {
   const [castAndCrews, setCastAndCrews] = useState([]);
   const [videos, setVideos] = useState([]);
   const [photos, setPhotos] = useState([]);
-  const [topWatchedMovies, setTopWatchedMovies] = useState([]);
+  const [tab, setTab] = useState('Streaming');
+  const [tabMovies, setTabMovies] = useState({
+    Streaming: [],
+    'On TV': [],
+    'In Theater': [],
+  });
+
   const navigate = useNavigate();
 
-  const BEARER_TOKEN = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5YTdiNmUyNGJkNWRkNjhiNmE1ZWFjZjgyNWY3NGY5ZCIsIm5iZiI6MTcyOTI5NzI5Ny4wNzMzNTEsInN1YiI6IjY2MzhlZGM0MmZhZjRkMDEzMGM2NzM3NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ZIX4EF2yAKl6NwhcmhZucxSQi1rJDZiGG80tDd6_9XI";
+  const BEARER_TOKEN = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyOWFlOTAxZjU5ZmE4YTQyZGRjN2RhMWUxMzRmOTFjZCIsIm5iZiI6MTczMjUxODMxMS45NzYsInN1YiI6IjY3NDQyMWE3ODkzYmU2MDliZTNhOGIwYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.0vzHGuKof4Ra66tKOFu39w0ztr4WCRpW-5Q6JR7jrJk';
 
   const getMovies = () => {
     axios.get('/movies').then((response) => {
@@ -22,27 +28,8 @@ function Dashboard() {
     });
   };
 
-  const getTopWatchedMovies = () => {
-    axios
-      .get('https://api.themoviedb.org/3/discover/movie', {
-        params: {
-          region: 'AS', 
-          sort_by: 'popularity.desc',
-          page: 1,
-          language: 'en-US',
-        },
-        headers: {
-          Authorization: BEARER_TOKEN,
-        },
-      })
-      .then((response) => {
-        setTopWatchedMovies(response.data.results.slice(0, 15)); 
-      });
-  };
-
   useEffect(() => {
     getMovies();
-    getTopWatchedMovies(); 
   }, []);
 
   const getMovieRating = (movie) => {
@@ -112,10 +99,6 @@ function Dashboard() {
     setPhotos([]);
   };
 
-  const removeMovieFromTopWatched = (movieId) => {
-    setTopWatchedMovies(topWatchedMovies.filter(movie => movie.id !== movieId));
-  };
-
   return (
     <div className="dashboard-container">
       <header className="dashboard-header">
@@ -123,7 +106,6 @@ function Dashboard() {
         <p>Discover, search, and manage your movies</p>
       </header>
 
-      {}
       <section className="search-bar">
         <input
           type="text"
@@ -133,38 +115,7 @@ function Dashboard() {
         />
       </section>
 
-      {}
       <section className="dashboard-main">
-        <div className="total-movie-list">
-          <h3>Total Movies: {movies.length}</h3>
-        </div>
-
-        {}
-        <div className="top-watched-movies">
-          <h3>Top Most Watched Movies in Asia</h3>
-          <div className="horizontal-scroll">
-            {topWatchedMovies.map((movie) => (
-              <div key={movie.id} className="movie-card">
-                <img
-                  src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
-                  alt={movie.title}
-                />
-                <div className="movie-info">
-                  <h4>{movie.title}</h4>
-                  {}
-                  <button
-                    className="remove-button"
-                    onClick={() => removeMovieFromTopWatched(movie.id)}
-                  >
-                    X
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {}
         {!selectedMovie ? (
           <div className="dashboard-movies">
             <div className="movie-cards">
@@ -194,7 +145,10 @@ function Dashboard() {
               <div className="movie-header">
                 <img
                   className="movie-poster"
-                  src={selectedMovie.posterPath || 'https://via.placeholder.com/200x300?text=No+Image'}
+                  src={
+                    selectedMovie.posterPath ||
+                    'https://via.placeholder.com/200x300?text=No+Image'
+                  }
                   alt={selectedMovie.title || 'No Poster Available'}
                 />
                 <div className="movie-details-container">
@@ -213,7 +167,10 @@ function Dashboard() {
                     </div>
                   </div>
 
-                  <button className="more-info-button" onClick={() => setShowMoreInfo(!showMoreInfo)}>
+                  <button
+                    className="more-info-button"
+                    onClick={() => setShowMoreInfo(!showMoreInfo)}
+                  >
                     {showMoreInfo ? 'Hide Info' : 'More Info'}
                   </button>
                 </div>
@@ -231,7 +188,7 @@ function Dashboard() {
                             alt={cast.name}
                           />
                         ) : (
-                          <div>No Image</div>
+                          <div className="no-image">No Image</div>
                         )}
                         <p>{cast.name}</p>
                         <p>{cast.character}</p>
@@ -242,10 +199,14 @@ function Dashboard() {
                   <h3>Videos</h3>
                   <div className="videos-section">
                     {videos.map((video) => (
-                      <div key={video.id} className="video-frame-container">
+                      <div key={video.id} className="video-item">
                         <iframe
-                          src={`https://www.youtube.com/embed/${video.key}`}
                           title={video.name}
+                          width="400"
+                          height="225"
+                          src={`https://www.youtube.com/embed/${video.key}`}
+                          frameBorder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                           allowFullScreen
                         ></iframe>
                       </div>
@@ -257,9 +218,8 @@ function Dashboard() {
                     {photos.map((photo) => (
                       <img
                         key={photo.file_path}
-                        src={`https://image.tmdb.org/t/p/original${photo.file_path}`}
-                        alt="Movie Scene"
-                        className="photo-thumbnail"
+                        src={`https://image.tmdb.org/t/p/w500${photo.file_path}`}
+                        alt="Movie"
                       />
                     ))}
                   </div>
@@ -269,10 +229,6 @@ function Dashboard() {
           </section>
         )}
       </section>
-
-      <footer className="dashboard-footer">
-        <p>&copy; 2024 Movie Dashboard</p>
-      </footer>
     </div>
   );
 }
