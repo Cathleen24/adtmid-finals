@@ -5,13 +5,14 @@ import axios from 'axios';
 
 function View() {
   const { movie, setMovie } = useMovieContext();
-  const [castAndCrews, setCastAndCrews] = useState([]);
+  const [castAndCrews, setCastAndCrews] = useState({ cast: [], crew: [] });
   const [videos, setVideos] = useState([]);
   const [photos, setPhotos] = useState([]);
+  const [playingVideo, setPlayingVideo] = useState(null); // State to track the currently playing video
   const { movieId } = useParams();
   const navigate = useNavigate();
 
-  const BEARER_TOKEN = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkNTg1YWU1ZTA3MzMzZmFhN2Y3M2FmNGQ4MWVhNDRlMCIsIm5iZiI6MTczMjYwNTY1NC42NCwic3ViIjoiNjc0NTc2ZDYwNjQyNGJkZTI3MDRkMTZkIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.ETF-ehpDK5wiUSMmLRQ1sLKE_aC5C4mBiEoh8-7noIM"; // Replace this with your actual token
+  const BEARER_TOKEN = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyOWFlOTAxZjU5ZmE4YTQyZGRjN2RhMWUxMzRmOTFjZCIsIm5iZiI6MTczMjUxODMxMS45NzYsInN1YiI6IjY3NDQyMWE3ODkzYmU2MDliZTNhOGIwYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.0vzHGuKof4Ra66tKOFu39w0ztr4WCRpW-5Q6JR7jrJk"; 
 
   useEffect(() => {
     if (movieId) {
@@ -66,6 +67,14 @@ function View() {
     }
   }, [movie]);
 
+  const handlePlayVideo = (videoKey) => {
+    setPlayingVideo(videoKey); // Set the current video key to play
+  };
+
+  const handleStopVideo = () => {
+    setPlayingVideo(null); // Stop the currently playing video
+  };
+
   return (
     <>
       {movie && (
@@ -87,7 +96,7 @@ function View() {
                   : 'https://via.placeholder.com/200x300?text=No+Image'
               }
               alt={movie.original_title || 'No Poster Available'}
-              style={{ width: '150px', height: '225px', objectFit: 'cover' }} // Updated styles to make poster fit
+              style={{ width: '150px', height: '225px', objectFit: 'cover' }}
             />
             <div className="movie-details-container">
               <h2 className="movie-title">{movie.original_title}</h2>
@@ -108,117 +117,138 @@ function View() {
 
           <div className="section-separator" />
 
-          {/* Cast & Crew */}
-          <div className="tabs-container">
-            <h3 className="section-header">Cast & Crew</h3>
+          {/* Cast & Crew Section */}
+          <h3 className="section-header">Cast & Crew</h3>
+          <div className="cast-crew-section">
+            <div className="cast-crew-list">
+              {/* Cast Table */}
+              <div className="cast-table-section">
+                <h4 className="cast-crew-subheader">Cast</h4>
+                <div className="cast-table-scroll">
+                  <table className="cast-crew-table">
+                    <thead>
+                      <tr>
+                        {/* Column Headers */}
+                        <th>Name</th>
+                        <th>Character</th>
+                        <th>Image</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {castAndCrews.cast.slice(0, 50).map((castMember) => (
+                        <tr key={castMember.id}>
+                          <td>{castMember.name}</td>
+                          <td>{castMember.character}</td>
+                          <td>
+                            <img
+                              className="cast-photo"
+                              src={
+                                castMember.profile_path
+                                  ? `https://image.tmdb.org/t/p/w500${castMember.profile_path}`
+                                  : 'https://via.placeholder.com/100x150?text=No+Image'
+                              }
+                              alt={castMember.name}
+                              style={{ width: '100px', height: '150px', objectFit: 'cover' }}
+                            />
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
 
-            <div className="scroll-section cast-section">
-              <table className="cast-crew-table">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Character/Department</th>
-                    <th>Gender</th>
-                    <th>Popularity</th>
-                    <th>Profile</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {castAndCrews.cast?.map((cast) => (
-                    <tr key={cast.id}>
-                      <td>{cast.name}</td>
-                      <td>{cast.character}</td>
-                      <td>{cast.gender === 1 ? 'Female' : cast.gender === 2 ? 'Male' : 'Unknown'}</td>
-                      <td>{cast.popularity}</td>
-                      <td>
-                        {cast.profile_path ? (
-                          <img
-                            className="cast-photo"
-                            src={`https://image.tmdb.org/t/p/w200${cast.profile_path}`}
-                            alt={cast.name}
-                            style={{ width: '50px', height: '75px', objectFit: 'cover' }} // Resizing cast photo
-                          />
-                        ) : (
-                          <div className="no-image">No Image</div>
-                        )}
-                      </td>
-                    </tr>
-                  ))}
-
-                  {castAndCrews.crew?.map((crew) => (
-                    <tr key={crew.id}>
-                      <td>{crew.name}</td>
-                      <td>{crew.job}</td>
-                      <td>{crew.gender === 1 ? 'Female' : crew.gender === 2 ? 'Male' : 'Unknown'}</td>
-                      <td>{crew.popularity}</td>
-                      <td>
-                        {crew.profile_path ? (
-                          <img
-                            className="cast-photo"
-                            src={`https://image.tmdb.org/t/p/w200${crew.profile_path}`}
-                            alt={crew.name}
-                            style={{ width: '50px', height: '75px', objectFit: 'cover' }} // Resizing crew photo
-                          />
-                        ) : (
-                          <div className="no-image">No Image</div>
-                        )}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              {/* Crew Table */}
+              <div className="crew-table-section">
+                <h4 className="cast-crew-subheader">Crew</h4>
+                <div className="crew-table-scroll">
+                  <table className="cast-crew-table">
+                    <thead>
+                      <tr>
+                        {/* Column Headers */}
+                        <th>Name</th>
+                        <th>Job</th>
+                        <th>Image</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {castAndCrews.crew.slice(0, 50).map((crewMember) => (
+                        <tr key={crewMember.id}>
+                          <td>{crewMember.name}</td>
+                          <td>{crewMember.job}</td>
+                          <td>
+                            <img
+                              className="crew-photo"
+                              src={
+                                crewMember.profile_path
+                                  ? `https://image.tmdb.org/t/p/w500${crewMember.profile_path}`
+                                  : 'https://via.placeholder.com/100x150?text=No+Image'
+                              }
+                              alt={crewMember.name}
+                              style={{ width: '100px', height: '150px', objectFit: 'cover' }}
+                            />
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
+          </div>
 
-            <div className="section-separator" />
+          <div className="section-separator" />
 
-            {/* Videos Table */}
-            <h3 className="section-header">Videos</h3>
-            <div className="videos-section">
-              <table className="videos-table">
-                <thead>
-                  <tr>
-                    <th>Video Name</th>
-                    <th>Video Type</th>
-                    <th>Language</th>
-                    <th>Release Date</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {videos.map((video) => (
-                    <tr key={video.id}>
-                      <td>{video.name}</td>
-                      <td>{video.type}</td>
-                      <td>{video.iso_639_1}</td>
-                      <td>{video.release_date}</td>
-                      <td>
-                        <button
-                          onClick={() => window.open(`https://www.youtube.com/watch?v=${video.key}`, '_blank')}
-                        >
-                          Watch
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            <div className="section-separator" />
-
-            {/* Photos */}
-            <h3 className="section-header">Photos</h3>
-            <div className="horizontal-scroll photos-section">
-              {photos.map((photo) => (
-                <img
-                  key={photo.file_path}
-                  src={`https://image.tmdb.org/t/p/original${photo.file_path}`}
-                  alt="Movie Scene"
-                  className="photo-thumbnail"
-                  style={{ width: '250px', height: '150px', objectFit: 'cover' }} // Resizing photo thumbnails to fit
-                />
+          {/* Videos Section */}
+          <h3 className="section-header">Videos</h3>
+          <div className="videos-section">
+            <div className="videos-grid">
+              {videos.map((video) => (
+                <div key={video.id} className="video-card">
+                  {playingVideo === video.key ? (
+                    <div className="video-player">
+                      <iframe
+                        width="100%"
+                        height="315"
+                        src={`https://www.youtube.com/embed/${video.key}?autoplay=1`}
+                        title={video.name}
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      ></iframe>
+                    </div>
+                  ) : (
+                    <div
+                      className="video-thumbnail"
+                      onClick={() => handlePlayVideo(video.key)}
+                    >
+                      <img
+                        src={`https://img.youtube.com/vi/${video.key}/hqdefault.jpg`}
+                        alt={video.name}
+                        className="thumbnail-image"
+                      />
+                      <div className="play-icon">&#9654;</div> {/* Play button overlay */}
+                    </div>
+                  )}
+                  <div className="video-title">{video.name}</div>
+                </div>
               ))}
             </div>
+          </div>
+
+          <div className="section-separator" />
+
+          {/* Photos Section */}
+          <h3 className="section-header">Photos</h3>
+          <div className="photos-section">
+            {photos.map((photo) => (
+              <img
+                key={photo.file_path}
+                className="photo-thumbnail"
+                src={`https://image.tmdb.org/t/p/w500/${photo.file_path}`}
+                alt="Photo"
+              />
+            ))}
           </div>
         </div>
       )}

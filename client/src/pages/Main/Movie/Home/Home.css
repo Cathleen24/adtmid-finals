@@ -1,33 +1,28 @@
-.page-title {
-  font-size: 3rem;
-  text-align: center;
-  margin-bottom: 2rem;
-  color: #fff;
-}
-
 .main-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
+  background-color: #1d1d1d;
+  padding: 2rem;
 }
 
 .featured-list-container {
   width: 100%;
-  height: 60vh; /* Adjusted to take up a larger portion of the screen */
+  margin-bottom: 5rem;
+  aspect-ratio: 16 / 9;
   position: relative;
-  margin-bottom: 2rem; /* Space between the backdrop and the movie list */
-  overflow: hidden; /* Prevents overflow from the backdrop */
 }
 
 .featured-backdrop {
   height: 100%;
   width: 100%;
-  background-size: cover; /* Ensures the backdrop fills the container */
-  background-position: center center; /* Keeps the image centered */
+  background-size: cover;
   display: flex;
-  align-items: flex-end; /* Align the movie title at the bottom */
-  transition: transform 0.3s ease; /* Smooth transition for hover effect */
+  align-items: flex-end;
+  transition: background-image 1s ease-in-out;
+  padding-bottom: 3rem;
+  border-radius: 12px;
 }
 
 .featured-backdrop:hover {
@@ -37,10 +32,10 @@
 
 .featured-movie-title {
   position: absolute;
-  bottom: 2rem;
-  left: 2rem;
+  bottom: 1rem;
+  left: 1rem;
   font-weight: bold;
-  font-size: 3rem;
+  font-size: 1.5rem;
   color: white;
   background-color: rgba(0, 0, 0, 0.6);
   padding: 1rem 1.5rem;
@@ -51,7 +46,7 @@
 .list-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 1.5rem;
   justify-content: center;
   width: 100%;
 }
@@ -60,8 +55,9 @@
   background-color: #2a2a2a;
   border-radius: 10px;
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  width: 220px; /* Set a fixed width for each movie card */
+  width: 220px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+  cursor: pointer;
 }
 
 .movie-card:hover {
@@ -72,37 +68,43 @@
 .movie-card img {
   width: 100%;
   height: auto;
+  border-bottom: 2px solid #f5c518; /* Added border for better distinction */
 }
 
-.cast-preview {
+.movie-card .movie-info {
   padding: 1rem;
-  color: #ddd;
+  color: white;
 }
 
-.video-photo-indicators {
-  display: flex;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
+.movie-card .movie-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
 }
 
-.video-indicator,
-.photo-indicator {
-  font-size: 1.5rem;
+.movie-card .movie-genre {
+  font-size: 1rem;
+  color: #aaa;
+}
+
+.movie-card .movie-rating {
+  font-size: 1.1rem;
   color: #f5c518;
 }
 
 .search-container {
   display: flex;
   justify-content: center;
+  width: 75%;
   margin-bottom: 2rem;
 }
 
 .search-bar {
-  width: 50%;
+  width: 60%;
   padding: 0.8rem;
   border: none;
   border-radius: 8px;
-  font-size: 1rem;
+  font-size: 1.1rem;
   outline: none;
   background-color: #2a2a2a;
   color: #fff;
@@ -114,4 +116,25 @@
 
 .search-bar:focus {
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.search-button {
+  background-color: #a3defc;
+  color: #fff;
+  padding: 0.1rem; /* Corrected padding to make the button smaller */
+  border: none;
+  border-radius: 2px;
+  width: 90px;
+  margin-left: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 0.9rem; /* Smaller font size for the button */
+}
+
+.search-button:hover {
+  background-color: #f1a200;
+}
+
+.movie-info:hover {
+  background-color: #444;
 }

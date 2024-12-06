@@ -1,15 +1,18 @@
 /* Main container for centering the form */
-.main-container {
+.mains-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   background-color: #f4f7fa;
+  width: 100%;
+  padding: 5rem;
+  box-sizing: border-box;
 }
 
 /* Form container with padding, border, and shadow for a clean card look */
-.form-container {
-  padding: 2rem;
+.forms-container {
+  padding: 1.5rem;
   border: 1px solid #e1e8ed;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
