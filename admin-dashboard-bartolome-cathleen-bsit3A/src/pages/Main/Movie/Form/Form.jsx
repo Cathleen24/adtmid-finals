@@ -349,7 +349,7 @@ const Form = () => {
         </div>
       )}
 
-      {/* Cast Modal */}
+      {}
       {isModalOpen && selectedCast && (
         <div className="modal">
           <div className="modal-content">
