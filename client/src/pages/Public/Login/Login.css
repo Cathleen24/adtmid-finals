@@ -1,4 +1,4 @@
-/* Main container for centering the form */
+
 .mains-container {
   display: flex;
   justify-content: center;
@@ -10,7 +10,7 @@
   box-sizing: border-box;
 }
 
-/* Form container with padding, border, and shadow for a clean card look */
+
 .forms-container {
   padding: 1.5rem;
   border: 1px solid #e1e8ed;
@@ -21,7 +21,7 @@
   max-width: 400px;
 }
 
-/* Heading with centered text */
+
 h3 {
   text-align: center;
   font-size: 1.5rem;
@@ -29,7 +29,7 @@ h3 {
   margin-bottom: 1.5rem;
 }
 
-/* General styles for form groups */
+
 .form-group {
   margin-bottom: 20px;
   display: flex;
@@ -55,14 +55,14 @@ h3 {
   border-color: #65e6db;
 }
 
-/* Error message styling */
+
 .errors {
   color: red;
   font-size: 0.8rem;
   margin-top: 5px;
 }
 
-/* Show password toggle link */
+
 .show-password {
   text-align: center;
   cursor: pointer;
@@ -71,7 +71,7 @@ h3 {
   margin-bottom: 20px;
 }
 
-/* Submit button styles */
+
 .submit-container {
   text-align: center;
 }
@@ -97,7 +97,7 @@ button:disabled {
   cursor: not-allowed;
 }
 
-/* Register container link styling */
+
 .register-container {
   text-align: center;
   margin-top: 1rem;
@@ -112,7 +112,7 @@ button:disabled {
   text-decoration: underline;
 }
 
-/* Optional: A background for the login page */
+
 body {
   font-family: 'Arial', sans-serif;
   margin: 0;
